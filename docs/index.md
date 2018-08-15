@@ -16,9 +16,9 @@ title: Index
 </ol>
 
 ## Articles
-{% include article-list.html %}
+{% include article-sections.html %}
 
 ## Authors
-{% include author-list.html %}
+{% include authors-ul.html %}
 
 <div style="height:2000px;"></div>
