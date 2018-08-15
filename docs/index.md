@@ -1,6 +1,6 @@
 ---
 layout: default
-title: The Commander's Handbook
+title: Table of Contents
 ---
 
 <ul>
