@@ -3,7 +3,19 @@ layout: default
 title: Table of Contents
 ---
 
-## Authors
+<h2>Articles</h2>
+{% for category in site.categories %}
+  <h3><a name="{{ category | first }}">{{ category | first }}</a></h3>
+  <ul>
+    {% for posts in category %}
+      {% for post in posts %}
+        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+<h2>Authors</h2>
 <ul>
   {% for author in site.authors %}
     <li>
@@ -11,11 +23,3 @@ title: Table of Contents
     </li>
   {% endfor %}
 </ul>
-
-## Articles
-{% for category in site.categories %}
-### {{ category }}
-{% for post in site.posts %}
-- [post.title]({{ site.baseurl }}{{ post.url }})
-{% endfor %}
-{% endfor %}
