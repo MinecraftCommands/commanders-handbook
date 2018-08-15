@@ -4,16 +4,7 @@ title: Index
 ---
 
 ## Table of Contents
-<ol>
-  <li><a href="#articles">Articles</a>
-    <ol>
-      {% for category in site.categories %}
-        <li><a href="#category-{{ category | first }}">{{ category | first }}</a></li>
-      {% endfor %}
-    </ol>
-  </li>
-  <li><a href="#authors">Authors</a></li>
-</ol>
+{% include toc.html %}
 
 ## Articles
 {% include article-sections.html %}
