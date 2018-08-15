@@ -1,5 +1,12 @@
-<ul>
-  {% for author in site.authors %}
-    <li><a href="{{ site.baseurl }}{{ author.url }}">{{ author.title }}</a></li>
-  {% endfor %}
-</ul>
+{% for category in site.categories %}
+  <h3><a name="category-{{ category | first }}">{{ category | first }}</a></h3>
+  <ul>
+    {% for posts in category %}
+      {% for post in posts %}
+        {% if post.url %}
+          <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endfor %}
