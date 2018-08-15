@@ -13,9 +13,9 @@ layout: default
 {% if posts %}
   <div>
     <h3>Articles by this author:</h3>
-    {% for post in posts | sort: "date" %}
+    {% for post in posts | sort: 'date' %}
       <li>
-        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }} ({{ post.date }})</a>
       </li>
     {% endfor %}
   </div>
