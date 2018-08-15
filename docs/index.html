@@ -8,8 +8,9 @@ title: Index
   <li><a href="#articles">Articles</a>
     <ol>
       {% for category in site.categories %}
-        {% if category != 'other' %}
-          <li><a href="#category-{{ category | first }}">{{ category | first | capitalize }}</a></li>
+        {% assign catfirst = category | first %}
+        {% if catfirst != 'other' %}
+          <li><a href="#category-{{ catfirst }}">{{ catfirst | capitalize }}</a></li>
         {% endif %}
       {% endfor %}
       <li><a href="#category-other">Other</a></li>
