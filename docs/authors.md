@@ -5,4 +5,4 @@ title: Authors
 
 A list of all those who've made contributions.
 
-{{% include author-list.html }}
+{% include author-list.html %}
