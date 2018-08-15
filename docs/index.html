@@ -7,7 +7,7 @@ title: Index
 <ol>
   <li><a href="#articles">Articles</a>
     <ol>
-      {% for category in site.categories | compact %}
+      {% for category in site.categories %}
         <li><a href="#category-{{ category | first }}">{{ category | first | capitalize }}</a></li>
       {% endfor %}
     </ol>
@@ -19,9 +19,9 @@ title: Index
 {% for category in site.categories %}
   <h3><a name="category-{{ category | first }}">{{ category | first | capitalize }}</a></h3>
   <ul>
-    {% for posts in category | compact %}
-      {% for post in posts | compact %}
-        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+    {% for posts in category %}
+      {% for post in posts %}
+        <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }} ({{ post }})</a></li>
       {% endfor %}
     {% endfor %}
   </ul>
