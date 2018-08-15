@@ -9,6 +9,8 @@ layout: default
 <div>
   {% assign posts = site.posts | where: 'author', page.title %}
   {% for post in posts %}
-    {% include post.html %}
+    <li>
+      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    </li>
   {% endfor %}
 </div>
