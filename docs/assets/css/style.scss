@@ -10,9 +10,9 @@
 // nested lists should not have a margin
 
 li > ol {
-  @extend nomargin;
+  @extend %nomargin;
 }
 
 li > ul {
-  @extend nomargin;
+  @extend %nomargin;
 }
