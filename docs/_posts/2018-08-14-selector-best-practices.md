@@ -1,6 +1,6 @@
 ---
 title: Selector best practices
-category: selectors
+category: Selectors
 tags: commands selectors optimization
 author: Arcensoth
 ---
