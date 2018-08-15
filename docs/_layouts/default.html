@@ -21,6 +21,15 @@
         {% endif %}
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
+        
+        {% if site.data.sidebar.pages %}
+        <ol class="sidebar-pages">
+          {% for name in site.data.sidebar.pages %}
+            {% assign page = site.pages[name] %}
+            <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }} ({{ name }})</a></li>
+          {% endfor %}
+        </ol>
+        {% endif %}
 
         {% if site.github.is_project_page %}
         <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
@@ -28,15 +37,6 @@
 
         {% if site.github.is_user_page %}
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
-        {% endif %}
-        
-        {% if site.data.sidebar.pages %}
-        <ul class="sidebar-pages">
-          {% for name in site.data.sidebar.pages %}
-            {% assign page = site.pages[name] %}
-            <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
-          {% endfor %}
-        </ul>
         {% endif %}
 
         {% if site.show_downloads %}
