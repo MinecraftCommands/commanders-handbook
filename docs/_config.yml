@@ -3,4 +3,6 @@ description: Put something here later
 logo: https://avatars3.githubusercontent.com/u/38362525?s=200&v=4
 show_downloads: true
 
+baseurl: "arcensoth.github.io/commanders-handbook"
+
 theme: jekyll-theme-minimal
