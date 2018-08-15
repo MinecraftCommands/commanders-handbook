@@ -1,5 +1,10 @@
 title: The Commander's Handbook
 description: Put something here later
 logo: ./logo.png
-
 theme: jekyll-theme-minimal
+
+collections:
+  authors:
+    title: Authors
+    output: true
+    permalink: /:collection/:name
