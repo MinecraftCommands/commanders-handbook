@@ -1,6 +1,6 @@
 ---
 title: On comparators...
-tags: [redstone, shame]
+tags: redstone shame
 ---
 
 no
