@@ -5,4 +5,4 @@ tags: loot-tables randomizers rng
 author: Arcensoth
 ---
 
-(WIP)
+TODO

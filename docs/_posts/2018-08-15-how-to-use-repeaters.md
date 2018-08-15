@@ -5,4 +5,4 @@ tags: redstone anti-patterns
 author: Arcensoth
 ---
 
-no
+really don't
