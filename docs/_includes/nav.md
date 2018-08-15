@@ -1,2 +1,4 @@
 - [Index](./)
+- [Articles](./articles)
+- [Authors](./authors)
 - [Contributing](./contributing)
