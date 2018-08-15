@@ -5,4 +5,4 @@ twitter: Arcensoth
 reddit: Arcensoth
 ---
 
-TODO list author posts using author template
+TODO write a bio
