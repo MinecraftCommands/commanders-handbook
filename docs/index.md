@@ -12,11 +12,10 @@ title: Table of Contents
   {% endfor %}
 </ul>
 
-## Posts
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+## Articles
+{% for category in site.categories %}
+### {{ category }}
+{% for post in site.posts %}
+- [post.title]({{ site.baseurl }}{{ post.url }})
+{% endfor %}
+{% endfor %}
