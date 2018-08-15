@@ -40,7 +40,8 @@
       </header>
       <section>
       
-      {% include nav.md %}
+      {% capture nav %}{% include nav.md %}{% endcapture %}
+      {{ nav | markdownify }}
 
       {{ content }}
 
