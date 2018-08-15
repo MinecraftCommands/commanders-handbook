@@ -1,6 +1,6 @@
 title: The Commander's Handbook
 description: Put something here later
-logo: ./logo.png
+logo: /assets/logo.png
 theme: jekyll-theme-minimal
 
 collections:
