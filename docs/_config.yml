@@ -14,4 +14,4 @@ defaults:
       path: ""
       type: authors
     values:
-      layout: default
+      layout: author

@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+<div>{{ content }}</div>
+
+<div>
+  {% assign posts = site.posts | where: 'author', page.title %}
+  {% for post in posts %}
+    {% include post.html %}
+  {% endfor %}
+</div>
