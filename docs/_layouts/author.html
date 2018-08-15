@@ -6,6 +6,8 @@ layout: default
 
 <div>{{ content }}</div>
 
+<hr>
+
 <div>
   {% assign posts = site.posts | where: 'author', page.title %}
   {% for post in posts %}
