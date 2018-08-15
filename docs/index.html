@@ -5,6 +5,7 @@ title: Index
 
 <h2><a name="toc">Table of Contents</a></h2>
 <ol>
+  <li><a href="#pages">Pages</a></li>
   <li><a href="#articles">Articles</a>
     <ol>
       {% for category in site.categories %}
@@ -13,8 +14,16 @@ title: Index
     </ol>
   </li>
   <li><a href="#authors">Authors</a></li>
-  <li><a href="#contributing">Contributing</a></li>
 </ol>
+
+<h2><a name="pages">Pages</a></h2>
+<ul>
+  {% for page in site.pages %}
+    <li>
+      <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
 
 <h2><a name="articles">Articles</a></h2>
 {% for category in site.categories %}
@@ -38,13 +47,5 @@ title: Index
     </li>
   {% endfor %}
 </ul>
-
-<h2><a name="contributing">Contributing</a></h2>
-<ol>
-  <li>Fork the repo</li>
-  <li>Add your article(s) to `docs/_posts`</li>
-  <li>If this is your first time contributing, add yourself to `/docs/_authors`</li>
-  <li>Submit a pull request</li>
-</ol>
 
 <div style="height:2000px;"></div>
