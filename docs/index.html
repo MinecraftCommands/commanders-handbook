@@ -21,7 +21,7 @@ title: Index
   <ul>
     {% for posts in category %}
       {% for post in posts %}
-        {% if post.url }
+        {% if post.url == true }
           <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
         {% endif %}
       {% endfor %}
