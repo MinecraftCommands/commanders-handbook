@@ -1,4 +1,4 @@
-- [Index]({{ site.baseurl }}/)
-- [Articles]({{ site.baseurl }}/articles)
-- [Authors]({{ site.baseurl }}/authors)
-- [Contributing]({{ site.baseurl }}/contributing)
+- [Index](/)
+- [Articles](/articles)
+- [Authors](/authors)
+- [Contributing](/contributing)
