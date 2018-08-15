@@ -19,9 +19,9 @@ title: Index
 <h2><a name="pages">Pages</a></h2>
 <ul>
   {% for page in site.pages %}
-    <li>
-      <a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a>
-    </li>
+    {% if page.url %}
+      <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+    {% endif %}
   {% endfor %}
 </ul>
 
@@ -42,9 +42,7 @@ title: Index
 <h2><a name="authors">Authors</a></h2>
 <ul>
   {% for author in site.authors %}
-    <li>
-      <a href="{{ site.baseurl }}{{ author.url }}">{{ author.title }}</a>
-    </li>
+    <li><a href="{{ site.baseurl }}{{ author.url }}">{{ author.title }}</a></li>
   {% endfor %}
 </ul>
 
