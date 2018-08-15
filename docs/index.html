@@ -3,11 +3,13 @@ layout: default
 title: Index
 ---
 
+{% assign mycategories = site.categories | compact %}
+
 <h2><a name="toc">Table of Contents</a></h2>
 <ol>
   <li><a href="#articles">Articles</a>
     <ol>
-      {% for category in site.categories %}
+      {% for category in mycategories %}
         <li><a href="#category-{{ category | first }}">{{ category | first | capitalize }}</a></li>
       {% endfor %}
     </ol>
@@ -16,7 +18,7 @@ title: Index
 </ol>
 
 <h2><a name="articles">Articles</a></h2>
-{% for category in site.categories %}
+{% for category in mycategories %}
   <h3><a name="category-{{ category | first }}">{{ category | first | capitalize }}</a></h3>
   <ul>
     {% for posts in category %}
