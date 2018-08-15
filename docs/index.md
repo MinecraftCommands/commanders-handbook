@@ -3,7 +3,7 @@ layout: default
 title: Index
 ---
 
-<h2><a name="toc">Table of Contents</a></h2>
+## Table of Contents
 <ol>
   <li><a href="#articles">Articles</a>
     <ol>
@@ -15,10 +15,10 @@ title: Index
   <li><a href="#authors">Authors</a></li>
 </ol>
 
-<h2><a name="articles">Articles</a></h2>
+## Articles
 {% include article-list.html %}
 
-<h2><a name="authors">Authors</a></h2>
+## Authors
 {% include author-list.html %}
 
 <div style="height:2000px;"></div>
