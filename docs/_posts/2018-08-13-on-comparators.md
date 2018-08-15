@@ -1,6 +1,6 @@
 ---
 title: On comparators
-category: misc
+category: other
 tags: redstone shame
 author: Minecraft
 ---
