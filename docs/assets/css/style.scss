@@ -1,0 +1,18 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+%nomargin {
+  margin: 0;
+}
+
+// nested lists should not have a margin
+
+li > ol {
+  @extend nomargin;
+}
+
+li > ul {
+  @extend nomargin;
+}
