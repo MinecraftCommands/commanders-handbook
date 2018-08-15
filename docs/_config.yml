@@ -3,7 +3,4 @@ description: Put something here later
 logo: ../logo.png
 show_downloads: true
 
-baseurl: ""
-url: "arcensoth.github.io/commanders-handbook"
-
 theme: jekyll-theme-minimal
