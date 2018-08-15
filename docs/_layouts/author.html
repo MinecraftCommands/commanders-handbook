@@ -10,7 +10,7 @@ layout: default
 
 {% assign posts = site.posts | where: 'author', page.title %}
 
-{% if author %}
+{% if posts %}
   <div>
     <h2>Articles by this author:</h2>
     {% for post in posts %}
