@@ -29,6 +29,15 @@
         {% if site.github.is_user_page %}
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
         {% endif %}
+        
+        {% if site.data.sidebar.pages %}
+        <ul class="sidebar-pages">
+          {% for name in site.data.sidebar.pages %}
+            {% assign page = site.pages[name] %}
+            <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
         {% if site.show_downloads %}
         <ul class="downloads">
