@@ -1,7 +1,7 @@
 <ol>
   <li><a href="#articles">Articles</a>
     <ol>
-      {% for category in site.categories | sort: "title" %}
+      {% for category in site.categories | sort %}
         <li><a href="#{{ category | first }}">{{ category | first }}</a></li>
       {% endfor %}
     </ol>

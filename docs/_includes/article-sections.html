@@ -1,7 +1,5 @@
-{% assign categories = site.categories | map: 0 %}
-
-{% for category in categories | sort %}
-  <h3><a name="{{ category }}">{{ category }}</a></h3>
+{% for category in site.categories | sort %}
+  <h3><a name="{{ category | first }}">{{ category | first }}</a></h3>
   <ul>
     {% for posts in category | sort %}
       {% for post in posts | sort: 'title' %}
