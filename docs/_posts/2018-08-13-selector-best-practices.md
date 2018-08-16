@@ -2,6 +2,7 @@
 title: Selector best practices
 category: Selectors
 tags: commands selectors optimization
+permalink: selector-best-practices
 author: Arcensoth
 ---
 
