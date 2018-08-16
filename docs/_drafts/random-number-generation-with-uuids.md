@@ -9,7 +9,7 @@ author: Arcensoth
 We can easily and effectively generate large random numbers by (ab)using entity UUIDs:
 ```
 summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1200,Tags:["rngcloud"]}
-execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDLeast 0.00000000023283
+execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDLeast 0.0000000002328306436538696289
 kill @e[type=minecraft:area_effect_cloud,tag=rngcloud]
 ```
 
@@ -20,19 +20,23 @@ scoreboard objectives setdisplay sidebar temp
 ```
 
 ## How it works
+When we summon an entity, it is instantaneously assigned a [universally unique identifier (UUID)](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`. Both of these longs are meant to be random, in theory, but in practice `UUIDMost` [seems to be the better option](#uuidmost-vs-uuidleast).
 
-When we summon an entity, it is instantaneously assigned a [universally unique identifier (UUID)](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`. Both of these longs are effectively random, so we'll just go with `UUIDLeast`.
-
-We still need to deal with the fact that scoreboard values can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.00000000023283` because math:
+We still need to deal with the fact that scoreboard values can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.0000000002328306436538696289` because math:
 
 1. `UUIDLeast` is a signed long and can hold from `-(2^63)` to `2^63 - 1`
 2. Scoreboard values are signed integers and can only hold from `-(2^31)` to `2^31 - 1`
 3. We need to crunch-down `UUIDLeast` to fit it into the scoreboard: `(2^63) / (2^31) = (2^32)`
-4. Using the reciprocal `1 / (2^32)` and rounding-down we get our scale of `0.00000000023283`
+4. Using the reciprocal `1 / (2^32)` and rounding-down we get the aforementioned scale
 
 And we've got a freshly-generated random number ready to go. Keep in mind the results fall in the range `-2147483648..2147483647` so you may need to cap the value according to your needs.
 
 Be aware that Minecraft 1.13.1 altered the way various scoreboard operations work with negative numbers, meaning results may not be consistent even within the same major version. [^2]
+
+### `UUIDMost` vs `UUIDLeast`
+Some empirical results show that `UUIDMost` is actually "more random" than `UUIDLeast`. [^3]
+
+Moreover, `UUIDLeast` is always negative. This may due to to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. These bits happen to be the most-significant bits of the least-significant half of the UUID. It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we get.
 
 ## Caveats and criticisms
 ### It cannot be seeded
@@ -43,11 +47,10 @@ While UUIDs can be [generated randomly](https://docs.oracle.com/javase/7/docs/ap
 
 Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^1] so we can be confident that this method will give us sufficiently random results.
 
-Fun fact: we went with `UUIDLeast` over `UUIDMost` simply because the most-significant bits of every UUID contain a static `version` field, denoting which format the UUID takes on. Presumably this reduces the overall entropy of `UUIDMost`, making `UUIDLeast` the ever-so-slightly more random half. Whether such a small difference is worth considering (or even entirely correct) is up for argument.
-
 ## Resources and further reading
 - Check out [this datapack](#) for a more thorough implementation of UUID-based RNG.
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) if you want to know more about how UUIDs are generated.
 
 [^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
 [^2]: https://bugs.mojang.com/browse/MC-135431
+[^3]: https://i.imgur.com/iuzMGJQ.png
