@@ -22,7 +22,7 @@ execute store result score $rng temp run data get entity @e[type=minecraft:area_
 kill @e[type=minecraft:area_effect_cloud,tag=rngcloud]
 ```
 
-You can use `Duration:0` and drop the `kill` altogether inside a function.
+You can use `Duration:0` and drop the `kill` altogether if you're not doing this by hand.
 
 ## How it works
 When we summon an entity, it is instantaneously assigned a [random-type UUID](#but-are-uuids-random). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`.
