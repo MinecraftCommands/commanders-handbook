@@ -47,7 +47,7 @@ Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptograp
 Fun fact: we went with `UUIDLeast` over `UUIDMost` simply because the most-significant bits of every UUID contain a static `version` field, denoting which format the UUID takes on. Presumably this reduces the overall entropy of `UUIDMost`, making `UUIDLeast` the ever-so-slightly more random half. Whether such a small difference is worth considering (or even entirely correct) is up for argument.
 
 ## Resources and further reading
-- Check out [the uuidrng datapack]() for a more thorough implementation of UUID-based RNG.
+- Check out [this datapack](#) for a more thorough implementation of UUID-based RNG.
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) if you want to know more about how UUIDs are generated.
 
 [^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
