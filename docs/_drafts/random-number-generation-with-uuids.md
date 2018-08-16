@@ -36,7 +36,7 @@ Be aware that Minecraft 1.13.1 altered the way various scoreboard operations wor
 ### `UUIDMost` vs `UUIDLeast`
 Some empirical results show that `UUIDMost` is actually "more random" than `UUIDLeast`. [^3]
 
-Moreover, `UUIDLeast` is always negative. This may due to to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. These bits happen to be the most-significant bits of the least-significant half of the UUID. It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we get.
+Moreover, `UUIDLeast` is always negative. This may due to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. These bits happen to be the most-significant bits of the least-significant half of the UUID. It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we get.
 
 ## Caveats and criticisms
 ### It cannot be seeded
@@ -45,12 +45,13 @@ The most obvious fallback to this approach is that it cannot be seeded. If you d
 ### UUIDs aren't necessarily random
 While UUIDs can be [generated randomly](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()), it's important to realize that they are generally designed to be *unique* and not necessarily random. They are often composed of values such as system clock time, clock sequence, and hardware MAC address, to help ensure that they are indeed unique.
 
-Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^1] so we can be confident that this method will give us sufficiently random results.
+Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^4] so we can be confident that this method will give us sufficiently random results.
 
 ## Resources and further reading
 - Check out [this datapack](#) for a more thorough implementation of UUID-based RNG.
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) if you want to know more about how UUIDs are generated.
 
-[^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
+[^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html
 [^2]: https://bugs.mojang.com/browse/MC-135431
 [^3]: https://i.imgur.com/iuzMGJQ.png
+[^4]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
