@@ -21,19 +21,18 @@ scoreboard objectives setdisplay sidebar temp
 
 ## How it works
 
-When we summon an entity, it is instantaneously assigned a [universally unique identifier (UUID)](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`. Both of these longs are effectively random, but we go with `UUIDLeast` for no obvious reason.
+When we summon an entity, it is instantaneously assigned a [universally unique identifier (UUID)](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`. Both of these longs are effectively random, so we'll just go with `UUIDLeast`.
 
-We've still got to deal with the fact that the scoreboard can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.00000000023283` because math:
+We still need to deal with the fact that scoreboard values can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.00000000023283` because math:
 
 1. `UUIDLeast` is a signed long and can hold from `-(2^63)` to `2^63 - 1`
 2. Scoreboard values are signed integers and can only hold from `-(2^31)` to `2^31 - 1`
 3. We need to crunch-down `UUIDLeast` to fit it into the scoreboard: `(2^63) / (2^31) = (2^32)`
 4. Using the reciprocal `1 / (2^32)` and rounding-down we get our scale of `0.00000000023283`
 
-And we've our freshly-generated random number is on the scoreboard:
-```
-scoreboard players get $rng temp
-```
+And we've got a freshly-generated random number ready to go. Keep in mind the results fall in the range `-2147483648..2147483647` so you may need to cap the value according to your needs.
+
+Be aware that Minecraft 1.13.1 altered the way various scoreboard operations work with negative numbers, meaning results may not be consistent even within the same major version. [^2]
 
 ## Caveats and criticisms
 ### It cannot be seeded
@@ -51,3 +50,4 @@ Fun fact: we went with `UUIDLeast` over `UUIDMost` simply because the most-signi
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) if you want to know more about how UUIDs are generated.
 
 [^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
+[^2]: https://bugs.mojang.com/browse/MC-135431
