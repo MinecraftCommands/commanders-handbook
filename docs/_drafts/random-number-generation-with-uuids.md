@@ -20,36 +20,43 @@ scoreboard objectives setdisplay sidebar temp
 ```
 
 ## How it works
-When we summon an entity, it is instantaneously assigned a [universally unique identifier (UUID)](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`. Both of these longs are meant to be random, in theory, but in practice `UUIDMost` [seems to be the better option](#uuidmost-vs-uuidleast).
+When we summon an entity, it is instantaneously assigned a [random-type UUID](#but-are-uuids-random). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`.
 
-We still need to deal with the fact that scoreboard values can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.0000000002328306436538696289` because math:
+Now comes the question: do we use `UUIDMost` or `UUIDLeast`? It's easy to flip a coin, but with a bit of digging you'll find out that `UUIDMost` [is the better option](#uuidmost-vs-uuidleast).
+
+In any case, we still need to deal with the fact that scoreboard values can only hold integers. It's a good thing `data get` comes with a `<scale>` factor. We use `0.0000000002328306436538696289` because math:
 
 1. `UUIDMost` is a signed long and can hold from `-(2^63)` to `2^63 - 1`
 2. Scoreboard values are signed integers and can only hold from `-(2^31)` to `2^31 - 1`
 3. We need to crunch-down `UUIDMost` to fit it into the scoreboard: `(2^63) / (2^31) = (2^32)`
 4. Using the reciprocal `1 / (2^32)` and rounding-down we get the aforementioned scale
 
-And we've got a freshly-generated random number ready to go. Keep in mind the results fall in the range `-2147483648..2147483647` so you may need to cap the value according to your needs.
+And we've got a freshly-generated random number ready to go. Keep in mind the results fall in the range `-2147483648..2147483647` and this is the part where you do modulo.
 
 Be aware that Minecraft 1.13.1 altered the way various scoreboard operations work with negative numbers, meaning results may not be consistent even within the same major version. [^2]
 
 ### `UUIDMost` vs `UUIDLeast`
-Some empirical results show that `UUIDMost` is actually "more random" than `UUIDLeast`. [^3]
+Just by spamming some commands you might notice that `UUIDMost` seems more random than `UUIDLeast`. [^3]
 
-Notice how `UUIDLeast` is always negative. This may due to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. Moreover, the `variant` consists of "a variable number of the most significant bits of octet 8 of the UUID" (AKA the most-significant bits of the least-significant half of the UUID). It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we see.
+It turns out this holds up on a technical level, too. Under the hood `UUIDMost` gives us 32 bits of full random goodness, whereas `UUIDLeast` comes in short at a measly `30`. The reason for this is twofold:
 
-## Caveats and criticisms
-### It cannot be seeded
-The most obvious fallback to this approach is that it cannot be seeded. If you do need seeded PRNG, then you'll have to look elsewhere. If don't need seeded PRNG, or don't know what this means in the first place, then this limitation isn't going to make a difference.
+1. The most-significant half (`UUIDMost`) of a random-type UUID contains 60 bits of entropy, where bits 49 through 52 define a static `version` field. The least-significant half (`UUIDLeast`) contains 62 bits of entropy, but this time bits 0 and 1 define a static `variant` field. The remaining 122 bits are set "to randomly (or pseudo-randomly) chosen values." [^5]
+2. We can only access the 32 most-signifcant bits of a long due to scoreboard scaling. With `UUIDMost` we're left with 32 bits of entropy for the taking, but `UUIDLeast` leaves its 2 most-significant bits to be desired.
 
-### UUIDs aren't necessarily random
-While UUIDs can be [generated randomly](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()), it's important to realize that they are generally designed to be *unique* and not necessarily random. They are often composed of values such as system clock time, clock sequence, and hardware MAC address, to help ensure that they are indeed unique.
+You might also notice that `UUIDLeast` is always negative, which is exactly what happened to those 2 bits. This is due to the way UUIDs record their format, wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. Moreover, the `variant` consists of "a variable number of the most significant bits of octet 8 of the UUID" [^5] i.e. the most-significant bits of `UUIDLeast`. Suffice it to say that the `variant` is solely responsible for determining the sign of every `UUIDLeast` we see.
 
-Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^4] so we can be confident that this method will give us sufficiently random results.
+## Questions and criticisms
+### How do you seed this thing?
+You can't. The most obvious fallback to this approach is that it cannot be seeded. If you do need seeded PRNG, then you'll have to look elsewhere. If don't need seeded PRNG, or don't know what this means in the first place, then this limitation isn't going to make a difference.
+
+### But are UUIDs random?
+While UUIDs can be generated with variable amounts of randomness, it's important to realize that they are generally designed to be *unique* and not necessarily random. They are often composed of values such as system clock time, clock sequence, and hardware MAC address, to help ensure that they are indeed unique.
+
+Lucky or us, Minecraft uses the kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^4] so we can be confident that this method will give us sufficiently random results. (You can verify that Minecraft does indeed use random-type UUIDs by decoding a few and checking their `version` field.)
 
 ## Resources and further reading
 - Check out [this datapack](#) for a more thorough implementation of UUID-based RNG.
-- Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) if you want to know more about how UUIDs are generated.
+- Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) and [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) if you want to know more about how UUIDs are generated.
 
 [^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html
 [^2]: https://bugs.mojang.com/browse/MC-135431
