@@ -6,18 +6,23 @@ permalink: random-number-generation-with-uuids
 author: Arcensoth
 ---
 
-We can easily and effectively generate large random numbers by (ab)using entity UUIDs:
+We can easily and effectively generate large random numbers by (ab)using entity UUIDs.
+
+## Give me commands
+Set things up once:
+```
+scoreboard objectives add temp dummy
+scoreboard objectives setdisplay sidebar temp
+```
+
+Generate a new random number:
 ```
 summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1200,Tags:["rngcloud"]}
 execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDMost 0.0000000002328306436538696289
 kill @e[type=minecraft:area_effect_cloud,tag=rngcloud]
 ```
 
-Here's a quick way to see the results:
-```
-scoreboard objectives add temp dummy
-scoreboard objectives setdisplay sidebar temp
-```
+You can use `Duration:0` and drop the `kill` altogether inside a function.
 
 ## How it works
 When we summon an entity, it is instantaneously assigned a [random-type UUID](#but-are-uuids-random). The resulting number is large enough that it needs to be stored in two separate NBT longs: `UUIDMost` and `UUIDLeast`.
