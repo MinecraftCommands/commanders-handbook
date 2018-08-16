@@ -9,7 +9,7 @@ author: Arcensoth
 We can easily and effectively generate large random numbers by (ab)using entity UUIDs:
 ```
 summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1200,Tags:["rngcloud"]}
-execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDLeast 0.0000000002328306436538696289
+execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDMost 0.0000000002328306436538696289
 kill @e[type=minecraft:area_effect_cloud,tag=rngcloud]
 ```
 
@@ -24,9 +24,9 @@ When we summon an entity, it is instantaneously assigned a [universally unique i
 
 We still need to deal with the fact that scoreboard values can only hold integers, so it's a good thing `data get` comes with a `<scale>` factor. We use `0.0000000002328306436538696289` because math:
 
-1. `UUIDLeast` is a signed long and can hold from `-(2^63)` to `2^63 - 1`
+1. `UUIDMost` is a signed long and can hold from `-(2^63)` to `2^63 - 1`
 2. Scoreboard values are signed integers and can only hold from `-(2^31)` to `2^31 - 1`
-3. We need to crunch-down `UUIDLeast` to fit it into the scoreboard: `(2^63) / (2^31) = (2^32)`
+3. We need to crunch-down `UUIDMost` to fit it into the scoreboard: `(2^63) / (2^31) = (2^32)`
 4. Using the reciprocal `1 / (2^32)` and rounding-down we get the aforementioned scale
 
 And we've got a freshly-generated random number ready to go. Keep in mind the results fall in the range `-2147483648..2147483647` so you may need to cap the value according to your needs.
@@ -36,7 +36,7 @@ Be aware that Minecraft 1.13.1 altered the way various scoreboard operations wor
 ### `UUIDMost` vs `UUIDLeast`
 Some empirical results show that `UUIDMost` is actually "more random" than `UUIDLeast`. [^3]
 
-Moreover, `UUIDLeast` is always negative. This may due to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. These bits happen to be the most-significant bits of the least-significant half of the UUID. It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we get.
+Notice how `UUIDLeast` is always negative. This may due to [the way UUIDs record their format](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html), wherein the `variant` field "contains a value which identifies the layout of the UUID" [^1] and hence remains static for every UUID of the same format. Moreover, the `variant` consists of "a variable number of the most significant bits of octet 8 of the UUID" (AKA the most-significant bits of the least-significant half of the UUID). It's possible that the value of `variant` (i.e. whatever type of UUID Minecraft employs) is solely responsible for determining the sign of every `UUIDLeast` we see.
 
 ## Caveats and criticisms
 ### It cannot be seeded
@@ -55,3 +55,4 @@ Lucky or us, Minecraft uses a kind of UUID that is "generated using a cryptograp
 [^2]: https://bugs.mojang.com/browse/MC-135431
 [^3]: https://i.imgur.com/iuzMGJQ.png
 [^4]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
+[^5]: http://www.ietf.org/rfc/rfc4122.txt
