@@ -44,7 +44,7 @@
         {% endif %}
 
         <!-- search element -->
-        <div>
+        <div class="search-container">
           <input type="text" id="search-input" placeholder="Search articles...">
           <ul id="search-results"></ul>
         </div>
@@ -80,12 +80,12 @@
     <!-- search scripts -->
     <script src="https://unpkg.com/simple-jekyll-search@1.7.0/dest/simple-jekyll-search.min.js"></script>
     <script>
-      var sjs = SimpleJekyllSearch({
+      SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('search-results'),
         json: '{{ site.baseurl }}/assets/posts.json',
         searchResultTemplate: '<li><a href="{url}">{title}</a></li>'
-      })
+      });
     </script>
 
   </body>

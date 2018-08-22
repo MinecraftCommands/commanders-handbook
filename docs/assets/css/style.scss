@@ -287,3 +287,10 @@ li > ol {
 li > ul {
   @extend %nomargin;
 }
+
+// search container
+.search-container > ul {
+  margin-top: 20px;
+  padding-left: 0;
+  list-style-type: none;
+}
