@@ -62,6 +62,6 @@ Lucky or us, Minecraft uses the kind of UUID that is "generated using a cryptogr
 ## Resources and further reading
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) and [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) if you want to know more about how UUIDs are generated.
 
-[^1]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html
-[^2]: https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID()
-[^3]: http://www.ietf.org/rfc/rfc4122.txt
+[^1]: [Java's UUID Class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html)
+[^2]: [Java's UUID Class, method `randomUUID()`](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html#randomUUID())
+[^3]: [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt)
