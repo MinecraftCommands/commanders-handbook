@@ -27,6 +27,12 @@
           {{ nav | markdownify }}
         </div>
 
+        <!-- search element -->
+        <div id="search-results">
+          <input type="text" id="search-input" placeholder="Search articles...">
+          <ul id="results-container"></ul>
+        </div>
+
         {% if site.github.is_project_page %}
         <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
         {% endif %}
@@ -46,12 +52,6 @@
       <section>
 
       {{ content }}
-
-      <!-- search element -->
-      <div id="search-results">
-        <input type="text" id="search-input" placeholder="Search articles...">
-        <ul id="results-container"></ul>
-      </div>
       
       <!-- TEMP -->
       <div style="height:1080px;"></div>
@@ -79,12 +79,15 @@
     <!-- search scripts -->
     <script src="https://unpkg.com/simple-jekyll-search@1.7.0/dest/simple-jekyll-search.min.js"></script>
     <script>
-      SimpleJekyllSearch({
+      var sjs = SimpleJekyllSearch({
         'search-input': document.getElementById('search-input'),
         resultsContainer: document.getElementById('search-results'),
         json: '/assets/search.json',
         searchResultTemplate: '<li><a href="{{ site.url }}{url}">{title}</a></li>'
       })
+
+      // testing 1 2 3 ...
+      console.log(sjs.search('How'));
     </script>
 
   </body>
