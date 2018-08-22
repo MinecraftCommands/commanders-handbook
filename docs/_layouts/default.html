@@ -46,7 +46,7 @@
         <!-- search element -->
         <div>
           <input type="text" id="search-input" placeholder="Search articles...">
-          <div id="search-results">
+          <ul id="search-results"></ul>
         </div>
 
       </header>
@@ -84,7 +84,7 @@
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('search-results'),
         json: '{{ site.baseurl }}/assets/search.json',
-        searchResultTemplate: '<li><a href="{{ site.baseurl }}{url}">{title}</a></li>'
+        searchResultTemplate: '<li><a href="{url}">{title}</a></li>'
       })
     </script>
 
