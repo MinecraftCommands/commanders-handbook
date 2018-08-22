@@ -27,12 +27,6 @@
           {{ nav | markdownify }}
         </div>
 
-        <!-- search element -->
-        <div id="search-results">
-          <input type="text" id="search-input" placeholder="Search articles...">
-          <ul id="results-container"></ul>
-        </div>
-
         {% if site.github.is_project_page %}
         <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ site.github.repository_nwo }}</small></a></p>
         {% endif %}
@@ -48,6 +42,13 @@
           <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
         </ul>
         {% endif %}
+
+        <!-- search element -->
+        <div id="search-results">
+          <input type="text" id="search-input" placeholder="Search articles...">
+          <ul id="results-container"></ul>
+        </div>
+        
       </header>
       <section>
 
@@ -85,9 +86,6 @@
         json: '{{ site.baseurl }}/assets/search.json',
         searchResultTemplate: '<li><a href="{{ site.baseurl }}{url}">{title}</a></li>'
       })
-
-      // testing 1 2 3 ...
-      console.log(sjs.search('How'));
     </script>
 
   </body>
