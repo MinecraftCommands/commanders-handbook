@@ -79,6 +79,10 @@ code {
   background:#eee;
 }
 
+pre > code {
+  background:inherit;
+}
+
 pre {
   padding:8px 15px;
   background: #f8f8f8;
