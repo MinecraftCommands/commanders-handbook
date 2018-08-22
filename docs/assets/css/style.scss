@@ -70,9 +70,12 @@ blockquote {
   font-style:italic;
 }
 
-code, pre {
-  // font-family:Fira Code, Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, Consolas, Liberation Mono, DejaVu Sans Mono, Courier New, monospace;
-  // color:#333;
+// code, pre {
+//   font-family:Fira Code, Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, Consolas, Liberation Mono, DejaVu Sans Mono, Courier New, monospace;
+//   color:#333;
+// }
+
+code {
   background:#eee;
 }
 
