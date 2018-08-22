@@ -46,6 +46,12 @@
       <section>
 
       {{ content }}
+
+      <!-- search element -->
+      <div>
+        <input type="text" id="search-input" placeholder="Search blog posts..">
+        <ul id="results-container"></ul>
+      </div>
       
       <!-- TEMP -->
       <div style="height:1080px;"></div>
@@ -69,5 +75,9 @@
       ga('send', 'pageview');
     </script>
     {% endif %}
+
+    <!-- search script -->
+    <script src="{{ site.baseurl }}/simple-jekyll-search.min.js"></script>
+
   </body>
 </html>
