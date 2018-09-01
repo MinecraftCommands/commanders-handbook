@@ -52,12 +52,12 @@ You might also notice that `UUIDLeast` is always negative, which is exactly what
 
 ## Questions and criticisms
 ### How do you seed this thing?
-You can't. The most obvious fallback to this approach is that it cannot be seeded. If you do need seeded PRNG, then you'll have to look elsewhere. If don't need seeded PRNG, or don't know what this means in the first place, then this limitation isn't going to make a difference.
+You can't. The most obvious fallback to this approach is that it cannot be seeded. If you do need seeded PRNG, then you'll have to look elsewhere. If you don't need seeded PRNG, or don't know what this means in the first place, then this limitation isn't going to make a difference.
 
 ### But are UUIDs random?
 While UUIDs can be generated with variable amounts of randomness, it's important to realize that they are generally designed to be *unique* and not necessarily random. They are often composed of values such as system clock time, clock sequence, and hardware MAC address, to help ensure that they are indeed unique.
 
-Lucky or us, Minecraft uses the kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^2] so we can be confident that this method will give us sufficiently random results. (You can verify that Minecraft does indeed use random-type UUIDs by decoding a few and checking their `version` field.)
+Lucky for us, Minecraft uses the kind of UUID that is "generated using a cryptographically strong pseudo random number generator" [^2] so we can be confident that this method will give us sufficiently random results. (You can verify that Minecraft does indeed use random-type UUIDs by decoding a few and checking their `version` field.)
 
 ## Resources and further reading
 - Read over [Java's UUID class](https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html) and [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) if you want to know more about how UUIDs are generated.
