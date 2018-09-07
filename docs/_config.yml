@@ -15,3 +15,5 @@ defaults:
       type: authors
     values:
       layout: author
+
+repository: MinecraftCommands/commanders-handbook

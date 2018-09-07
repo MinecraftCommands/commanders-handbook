@@ -8,12 +8,12 @@ layout: default
 
 <hr>
 
-{% assign posts = site.posts | where: 'author', page.title %}
+{% assign posts = site.posts | where: 'author', page.title | sort: 'date' %}
 
 {% if posts %}
   <div>
     <h3>Articles by this author:</h3>
-    {% for post in posts | sort: 'date' %}
+    {% for post in posts %}
       <li>
         <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
       </li>
