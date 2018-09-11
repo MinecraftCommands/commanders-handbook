@@ -13,15 +13,15 @@ Different selector arguments have different performance impacts, and so it is im
 
 ## TL;DR
 Selector arguments should be in this order:
-1. type
-2. In any order:
-  * gamemode
-  * team
-3. tag
-4. name
-5. scores
-6. advancements
-7. nbt
+1. type (when using `type=`)
+2. gamemode
+3. team
+4. type (when using `type=!`)
+5. tag
+6. name
+7. scores
+8. advancements
+9. nbt
 
 These selector arguments have predefined order, and as such the order does not matter:
 * level
@@ -61,23 +61,26 @@ The following selector arguments perform tasks both before and after all other s
 ### 1. `type`
 `type` is known to drastically reduce the number of entities processed. For a full explanation see [When to use `type` in selectors]({{ site.baseurl }}{% post_url 2018-08-22-when-to-use-type-in-selectors %})
 
-### 2. `gamemode` and `team`
-`gamemode` and `team` are able to discard a very large number of entities at very little cost.
-> TODO: explain in detail why these selector arguments can discard a large number of entities
+### 2. `gamemode`
+`gamemode` is similar to `type`, it discards all non-player entities immediately, leaving only player entities that need to be processed
 
-e.g. Using `gamemode=creative` limits the selector to only creative players, which on a survival server would result in discarding all survival players, which very likely is a large number of players.
+### 3. `team`
+`team` is also similar to type, it discards all non-living entities. This is still more entities that need to be processed than `gamemode`, hence why `team` is after `gamemode`
 
-### 3. `tag`
+## 4. `type`
+When using `type=!` the number of entities discarded is much lower than when using `type=`, and so it is suggested to put it after `gamemode` and `team` which throw out more entity types in this case
+
+### 5. `tag`
 `tag` is a very cheap selector, entity tags are stored as a hashset and therefore tag lookup is very fast. Specifically, lookup is `O(k)`, where `k` is the length of the tag name.
 
-### 4. `name`
+### 6. `name`
 `name` is slower than `tag` because the name of an entity is a JSON text component, and is converted to a plain text string any time the `name` selector argument is used.
 
-### 5. `score`
+### 7. `score`
 `score` has a slightly more complicated lookup process. The score name and the entity's UUID are both used as keys to find the associated score value, and then that value is compared with the range specified.
 
-### 6. `advancement`
+### 8. `advancement`
 `advancement` has a very similar lookup to `score`, but has a slightly more complicated value test. It either checks if the player has the advancement, or checks the criteria to see if they have the specified criteria
 
-### 7. `nbt`
+### 9. `nbt`
 `nbt` is the slowest selector. In memory the game doesn't use NBT, instead every block/entity stores it in its own structure. This means that in order to test, or manipulate NBT in any way, the game first needs to convert these custom structures back into NBT, which is does by serializing to NBT then deserializing back into some internal structure that is used for comparing the NBT. This process is intensive, and so `nbt` selector arguments should be last, and avoided whenever possible.
