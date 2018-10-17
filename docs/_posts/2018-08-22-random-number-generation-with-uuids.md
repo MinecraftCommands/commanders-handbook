@@ -17,7 +17,7 @@ scoreboard objectives setdisplay sidebar temp
 
 Generate a new random number:
 ```
-summon minecraft:area_effect_cloud ~ ~ ~ {Duration:1200,Tags:["rngcloud"]}
+summon minecraft:area_effect_cloud ~ ~ ~ {Tags:["rngcloud"]}
 execute store result score $rng temp run data get entity @e[type=minecraft:area_effect_cloud,tag=rngcloud,limit=1] UUIDMost 0.0000000002328306436538696289
 kill @e[type=minecraft:area_effect_cloud,tag=rngcloud]
 ```
