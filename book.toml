@@ -12,6 +12,7 @@ create-missing = false
 [output.html]
 git-repository-url = "https://github.com/MinecraftCommands/commanders-handbook"
 edit-url-template = "https://github.com/MinecraftCommands/commanders-handbook/edit/main/src/{path}"
+no-section-label = true
 
 # https://rust-lang.github.io/mdBook/format/configuration/renderers.html
 
