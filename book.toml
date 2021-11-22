@@ -1,0 +1,28 @@
+[book]
+title = "Commander's Handbook"
+description = "A community-curated collection of Minecraft map-making tricks and tips."
+language = "en"
+multilingual = false
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+git-repository-url = "https://github.com/MinecraftCommands/commanders-handbook"
+edit-url-template = "https://github.com/MinecraftCommands/commanders-handbook/edit/main/src/{path}"
+
+# https://rust-lang.github.io/mdBook/format/configuration/renderers.html
+
+[output.html.search]
+enable = true
+# limit-results = 30
+# teaser-word-count = 30
+# use-boolean-and = true
+# boost-title = 2
+# boost-hierarchy = 1
+# boost-paragraph = 1
+# expand = true
+# heading-split-level = 3
+# copy-js = true
