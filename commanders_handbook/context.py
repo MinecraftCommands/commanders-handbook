@@ -108,7 +108,7 @@ class Context:
     ):
         if TEMPLATE_PATTERN.search(content):
             filepaths = list(self.build_packs(result, section, chapter, content))
-            lines = [f"- [{filepath.name}](/{filepath})" for filepath in filepaths]
+            lines = [f"- [{filepath.name}]({filepath})" for filepath in filepaths]
             replacement = "\n".join(lines)
             chapter["content"] = TEMPLATE_PATTERN.sub(replacement, content)
 
