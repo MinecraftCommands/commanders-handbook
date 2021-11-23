@@ -116,7 +116,7 @@ class Context:
         result = Result(copy.deepcopy(self.book))
 
         # process root sections
-        if isinstance(sections := self.book.get("sections"), list):
+        if isinstance(sections := result.book.get("sections"), list):
             for section in sections:
                 if isinstance(section, dict):
                     self.process_section(result, section)
