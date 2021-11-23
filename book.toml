@@ -14,5 +14,8 @@ git-repository-url = "https://github.com/MinecraftCommands/commanders-handbook"
 edit-url-template = "https://github.com/MinecraftCommands/commanders-handbook/edit/main/src/{path}"
 no-section-label = true
 
-[preprocessor.scan_for_packs]
-command = "python ./scripts/scan_for_packs.py"
+[preprocessor.commanders_handbook]
+command = "python -m commanders_handbook.preprocess"
+
+[output.commanders_handbook]
+command = "python -m commanders_handbook.render"
