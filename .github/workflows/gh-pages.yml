@@ -24,8 +24,11 @@ jobs:
       - name: Install Poetry for Python
         uses: snok/install-poetry@v1
 
-      - name: Tell Poetry to use the system Python
-        run: poetry config virtualenvs.create false
+      - name: Create a Python virtual env
+        run: python -m venv venv
+
+      - name: Activate the Python virtual env
+        run: source venv/bin/activate
 
       - name: Install Python dependencies
         run: poetry install
