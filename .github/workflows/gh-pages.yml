@@ -26,14 +26,8 @@ jobs:
         with:
           virtualenvs-in-project: true
 
-      - name: Check which virtual env is being used
-        run: poetry env info
-
       - name: Install Python dependencies
         run: poetry install
-
-      - name: Print the list of Python packages via Poetry
-        run: poetry show
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
