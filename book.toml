@@ -13,7 +13,6 @@ create-missing = false
 git-repository-url = "https://github.com/MinecraftCommands/commanders-handbook"
 edit-url-template = "https://github.com/MinecraftCommands/commanders-handbook/edit/main/src/{path}"
 no-section-label = true
-site-url = "/commanders-handbook/"
 
 [preprocessor.commanders_handbook]
 command = "poetry run python -m commanders_handbook.preprocess"

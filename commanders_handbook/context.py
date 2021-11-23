@@ -98,7 +98,10 @@ class Context:
 
                     result.packs[pack_output_path] = data
 
-                    yield pack_output_path.relative_to(self.generated_path.parent)
+                    pack_rel = pack_output_path.relative_to(self.generated_path.parent)
+                    depth = len(chapter_path.parents) - 1
+                    pack_up = Path("../" * depth)
+                    yield pack_up / pack_rel
 
     def process_content(
         self, result: Result, section: dict, chapter: dict, content: str
