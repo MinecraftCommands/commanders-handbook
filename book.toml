@@ -15,7 +15,7 @@ edit-url-template = "https://github.com/MinecraftCommands/commanders-handbook/ed
 no-section-label = true
 
 [preprocessor.commanders_handbook]
-command = "python -m commanders_handbook.preprocess"
+command = "poetry run commanders_handbook.preprocess"
 
 [output.commanders_handbook]
-command = "python -m commanders_handbook.render"
+command = "poetry run commanders_handbook.render"
