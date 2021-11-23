@@ -3,7 +3,8 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Sample pack using Lectern - Commander&#x27;s Handbook</title>
+        <title>Commander&#x27;s Handbook</title>
+                <meta name="robots" content="noindex" />
                 
 
         <!-- Custom HTML head -->
@@ -81,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html">Index</a></li><li class="chapter-item expanded "><a href="lectern.html" class="active">Sample pack using Lectern</a></li><li class="chapter-item expanded "><a href="markers/index.html">Using entities as markers</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="markers/armor_stands.html">Armor stands</a></li><li class="chapter-item expanded "><a href="markers/area_effect_clouds.html">Area effect clouds</a></li><li class="chapter-item expanded "><a href="markers/markers.html">Markers</a></li><li class="chapter-item expanded "><a href="markers/example_pack.html">Example pack using markers</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="misc/contributors.html">Contributors</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html">Index</a></li><li class="chapter-item expanded "><a href="lectern.html">Sample pack using Lectern</a></li><li class="chapter-item expanded "><a href="markers/index.html">Using entities as markers</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="markers/armor_stands.html">Armor stands</a></li><li class="chapter-item expanded "><a href="markers/area_effect_clouds.html">Area effect clouds</a></li><li class="chapter-item expanded "><a href="markers/markers.html">Markers</a></li><li class="chapter-item expanded "><a href="markers/example_pack.html">Example pack using markers</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="misc/contributors.html">Contributors</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -119,10 +120,7 @@
                                                                         <a href="https://github.com/MinecraftCommands/commanders-handbook" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
-                                                                        <a href="https://github.com/MinecraftCommands/commanders-handbook/edit/main/src/src/lectern.md" title="Suggest an edit" aria-label="Suggest an edit">
-                            <i id="git-edit-button" class="fa fa-edit"></i>
-                        </a>
-                        
+                                                
                     </div>
                 </div>
 
@@ -148,7 +146,10 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="sample-pack-using-lectern"><a class="header" href="#sample-pack-using-lectern">Sample pack using Lectern</a></h1>
+                        <h1 id="the-commanders-handbook"><a class="header" href="#the-commanders-handbook">The Commander's Handbook</a></h1>
+<p><img src="assets/logo.png" alt="Logo" /></p>
+<p>A community-curated collection of Minecraft map-making tricks and tips.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sample-pack-using-lectern"><a class="header" href="#sample-pack-using-lectern">Sample pack using Lectern</a></h1>
 <p>From: https://raw.githubusercontent.com/mcbeet/lectern/main/examples/combined.md</p>
 <p>This contains both a data pack and a resource pack.</p>
 <h2 id="resource-pack"><a class="header" href="#resource-pack">Resource pack</a></h2>
@@ -194,21 +195,49 @@
 <h2 id="download"><a class="header" href="#download">Download</a></h2>
 <p>You can download the final result here:</p>
 <ul>
-<li><a href="lectern_resource_pack.zip">lectern_resource_pack.zip</a></li>
-<li><a href="lectern_data_pack.zip">lectern_data_pack.zip</a></li>
+<li><a href="/__generated__/packs/lectern_resource_pack.zip">lectern_resource_pack.zip</a></li>
+<li><a href="/__generated__/packs/lectern_data_pack.zip">lectern_data_pack.zip</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-entities-as-markers"><a class="header" href="#using-entities-as-markers">Using entities as markers</a></h1>
+<p>We have a few options blah blah blah this is demo text:</p>
+<ul>
+<li><a href="markers/armor_stands.html">Armor stands</a> are the laggiest but can display stuff</li>
+<li><a href="markers/area_effect_clouds.html">Area effect clouds</a> can double as timers</li>
+<li><a href="markers/markers.html">Markers</a> perform the best but have fewer features</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="armor-stands"><a class="header" href="#armor-stands">Armor stands</a></h1>
+<p>are the laggiest but can display stuff</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="area-effect-clouds"><a class="header" href="#area-effect-clouds">Area effect clouds</a></h1>
+<p>can double as timers</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="markers"><a class="header" href="#markers">Markers</a></h1>
+<p>perform the best but have fewer features</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-pack-using-markers"><a class="header" href="#example-pack-using-markers">Example pack using markers</a></h1>
+<p>but not really</p>
+<p>DOWNLOAD HERE:</p>
+<ul>
+<li><a href="markers//__generated__/packs/markers/example_pack_data_pack.zip">example_pack_data_pack.zip</a></li>
+</ul>
+<hr />
+<p>Let's start by creating a simple function:</p>
+<p><code>@function tutorial:greeting</code></p>
+<pre><code class="language-mcfunction">say Hello, world!
+</code></pre>
+<p>And now we can make it run when the data pack is loaded!</p>
+<p><code>@function_tag minecraft:load</code></p>
+<pre><code class="language-json">{
+  &quot;values&quot;: [&quot;tutorial:greeting&quot;]
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contributors"><a class="header" href="#contributors">Contributors</a></h1>
+<ul>
+<li><a href="https://github.com/Arcensoth">Arcensoth</a></li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
                         
-                                                    <a rel="next" href="markers/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
                         <div style="clear: both"></div>
                     </nav>
@@ -216,13 +245,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
                 
-                                    <a rel="next" href="markers/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                             </nav>
 
         </div>
@@ -245,6 +268,11 @@
 
         <!-- Custom JS scripts -->
         
-        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+                
     </body>
 </html>
