@@ -27,8 +27,14 @@ jobs:
       - name: Create a Python virtual env
         run: python -m venv venv
 
-      - name: Activate the Python virtual env
+      - name: Activate the virtual env
         run: source venv/bin/activate
+
+      - name: Explicitly tell Poetry which virtual env to use
+        run: poetry env use venv/bin/python
+
+      - name: Check which virtual env is being used
+        run: poetry env info
 
       - name: Install Python dependencies
         run: poetry install
