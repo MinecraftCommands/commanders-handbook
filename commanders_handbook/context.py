@@ -12,6 +12,8 @@ from beet import Context as BeetContext
 from beet import ProjectConfig, config_error_handler, run_beet
 from lectern import Document
 
+GENERATED_DIR = "__generated__"
+PACKS_DIR = "packs"
 TEMPLATE_PATTERN = re.compile(r"\{\{\s*\#packs\s*\}\}")
 
 
@@ -37,11 +39,20 @@ class Context:
     def root_path(self) -> Path:
         return Path(self.root)
 
+    # DELETEME unused
     @property
     def build_path(self) -> Path:
         return (
             self.root_path / self.config["build"]["build-dir"] / "commanders_handbook"
-        ).absolute()
+        )
+
+    @property
+    def generated_path(self) -> Path:
+        return self.root_path / self.config["book"]["src"] / GENERATED_DIR
+
+    @property
+    def packs_path(self) -> Path:
+        return self.root_path / self.config["book"]["src"] / GENERATED_DIR / PACKS_DIR
 
     def print(self, message: str):
         print(message, file=sys.stderr)
@@ -50,8 +61,7 @@ class Context:
         self, result: Result, section: dict, chapter: dict, content: str
     ) -> Iterable[Path]:
         chapter_path = Path(chapter["path"])
-        chapter_output_path = self.build_path / chapter_path
-        chapter_output_path.parent.mkdir(parents=True, exist_ok=True)
+        chapter_output_path = self.packs_path / chapter_path
 
         base_config = {
             "name": chapter_path.with_suffix("").name,
@@ -82,19 +92,22 @@ class Context:
                         chapter_output_path.parent / pack_name
                     ).with_suffix(".zip")
 
-                    result.packs[pack_output_path] = fp.getvalue()
+                    data = fp.getvalue()
 
-                    yield pack_output_path
+                    self.print(f"  Built pack: {pack_name} ({len(data)} bytes)")
+
+                    result.packs[pack_output_path] = data
+
+                    yield pack_output_path.relative_to(self.generated_path.parent)
 
     def process_content(
         self, result: Result, section: dict, chapter: dict, content: str
     ):
-        def repl(match) -> str:
+        if TEMPLATE_PATTERN.search(content):
             filepaths = list(self.build_packs(result, section, chapter, content))
-            lines = [f"- [{filepath.name}]({filepath.name})" for filepath in filepaths]
-            return "\n".join(lines)
-
-        chapter["content"] = TEMPLATE_PATTERN.sub(repl, content)
+            lines = [f"- [{filepath.name}](/{filepath})" for filepath in filepaths]
+            replacement = "\n".join(lines)
+            chapter["content"] = TEMPLATE_PATTERN.sub(replacement, content)
 
     def process_chapter(self, result: Result, section: dict, chapter: dict):
         # process the chapter's own content
@@ -113,7 +126,7 @@ class Context:
             self.process_chapter(result, section, chapter)
 
     def process(self) -> Result:
-        result = Result(copy.deepcopy(self.book))
+        result = Result(book=copy.deepcopy(self.book))
 
         # process root sections
         if isinstance(sections := result.book.get("sections"), list):
@@ -125,11 +138,20 @@ class Context:
 
     def preprocess(self) -> str:
         result = self.process()
+
+        for filepath, data in result.packs.items():
+            self.print(f"  Writing pack: {filepath} ({len(data)} bytes)")
+            filepath.parent.mkdir(parents=True, exist_ok=True)
+            with open(filepath, "wb") as fp:
+                fp.write(data)
+
         return json.dumps(result.book)
 
+    # DELETEME unused
     def render(self):
         result = self.process()
         for filepath, data in result.packs.items():
-            self.print(f"Writing pack: {filepath}")
+            self.print(f"  Writing pack: {filepath} ({len(data)} bytes)")
+            filepath.parent.mkdir(parents=True, exist_ok=True)
             with open(filepath, "wb") as fp:
                 fp.write(data)

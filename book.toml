@@ -17,5 +17,5 @@ no-section-label = true
 [preprocessor.commanders_handbook]
 command = "poetry run python -m commanders_handbook.preprocess"
 
-[output.commanders_handbook]
-command = "poetry run python -m commanders_handbook.render"
+# [output.commanders_handbook]
+# command = "poetry run python -m commanders_handbook.render"
