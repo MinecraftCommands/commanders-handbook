@@ -1,0 +1,37 @@
+whitelist:
+  - beet.contrib.template_sandbox
+  - beet.contrib.inline_function
+  - beet.contrib.inline_function_tag
+  - beet.contrib.dundervar
+  - lectern.contrib.relative_location
+  - lectern.contrib.require
+  - lectern.contrib.define
+  - lectern.contrib.script
+  - beet.contrib.render
+  - beet.contrib.hangman
+  - beet.contrib.scoreboard
+  - beet.contrib.relative_function_path
+  - commanderbot.ext.pack.pack_generate
+  - beet.contrib.yellow_shulker_box
+  - beet.contrib.auto_yaml
+require:
+  - beet.contrib.template_sandbox
+  - beet.contrib.inline_function
+  - beet.contrib.inline_function_tag
+  - beet.contrib.dundervar
+  - lectern.contrib.relative_location
+  - lectern.contrib.require
+  - lectern.contrib.define
+  - lectern.contrib.script
+  - beet.contrib.auto_yaml
+pipeline:
+  - beet.contrib.render
+  - beet.contrib.hangman
+  - beet.contrib.relative_function_path
+  - beet.contrib.scoreboard
+meta:
+  render:
+    data_pack:
+      functions: ["*"]
+  hangman:
+    match: ["*"]

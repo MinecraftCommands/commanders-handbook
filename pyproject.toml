@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "commanders-handbook"
+version = "0.0.0"
+description = "A community-curated collection of Minecraft map-making tricks and tips."
+authors = ["Arcensoth <arcensoth@gmail.com>"]
+readme = 'README.md'
+repository = "https://github.com/Arcensoth/imp-datapack"
+homepage = "https://github.com/Arcensoth/imp-datapack"
+classifiers = [
+    "Private :: Do Not Publish"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+beet = "^0.44.11"
+lectern = "^0.18.0"
+mecha = "^0.13.3"
+
+[tool.poetry.dev-dependencies]
+black = "^21.11b1"
+isort = "^5.10.0"
+rope = "^0.20.1"
+
+[tool.pyright]
+typeCheckingMode = "basic"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
